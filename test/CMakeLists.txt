@@ -19,4 +19,7 @@ if (ELLOG_BUILD_TESTS)
     target_link_libraries (ellogtest Catch)
     target_link_libraries (ellogtest Ellog)
     add_test (NAME EllogTest COMMAND ellogtest)
+
+    add_custom_target (check COMMAND ${CMAKE_CTEST_COMMAND})
+    add_dependencies (check ellogtest)
 endif()
