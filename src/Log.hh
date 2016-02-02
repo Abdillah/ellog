@@ -1,6 +1,8 @@
 #ifndef __LOG_HH__
 #define __LOG_HH__
 
+#include <vector>
+
 namespace Abdillah::Ellog {
     struct Channel
     {
@@ -22,7 +24,8 @@ namespace Abdillah::Ellog {
         void log (const char* tag, const char* msg);
 
     private:
-        const char* channel_name;
+        static std::vector<Channel> channels;
+        Channel channel;
 
         char* now ();
     };
