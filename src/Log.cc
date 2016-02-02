@@ -12,9 +12,19 @@ namespace Abdillah::Ellog {
     const char* Log::TAG_WARN   = "[  WARN]";
     const char* Log::TAG_ERROR  = "[ ERROR]";
 
+    std::vector<Channel> Log::channels;
+
     Log::Log (const char* channel_name)
-        : channel_name (channel_name)
-    {}
+    {
+        char name[20];
+        std::strcpy(name, channel_name);
+        this->channel = Log::create_channel(name);
+    }
+
+    Log::~Log ()
+    {
+        Log::remove_channel (this->channel);
+    }
 
     Channel
     Log::create_channel (char* name)

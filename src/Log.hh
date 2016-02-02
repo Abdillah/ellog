@@ -21,6 +21,7 @@ namespace Abdillah::Ellog {
         static void remove_channel (Channel ch);
 
         Log (const char* channel_name);
+        ~Log ();
         void log (const char* tag, const char* msg);
 
     private:
