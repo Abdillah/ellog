@@ -2,6 +2,7 @@
 
 #include <cstring>
 #include <iostream>
+#include <algorithm>
 #include <chrono>
 #include <iomanip>
 
@@ -14,6 +15,31 @@ namespace Abdillah::Ellog {
     Log::Log (const char* channel_name)
         : channel_name (channel_name)
     {}
+
+    Channel
+    Log::create_channel (char* name)
+    {
+        Channel ch = {
+            .name = name,
+            .is_active = true
+        };
+        Log::channels.push_back(ch);
+        return ch;
+    }
+
+    void
+    Log::remove_channel (Channel ch)
+    {
+        // `std::vector<Channel>::iterator` is the type
+        // but `auto` is preferred
+        auto rem_iter = std::remove_if (Log::channels.begin(),
+                                        Log::channels.end(),
+                                        [ch](Channel const& item) {
+                                            return !std::strcmp(item.name, ch.name);
+                                        });
+        Log::channels.erase (rem_iter, Log::channels.end());
+        return;
+    }
 
     void
     Log::log (const char* tag, const char* msg)
